@@ -6,47 +6,56 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:30 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/03/04 17:31:42 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/03/11 16:24:24 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// int	find_newline(int fd, char *buf, char *temp)
-// {
-// 	int done;
-// 	int i;
-
-// 	while (1)
-// 	{
-// 		read(fd, buf, BUFFER_SIZE);
-// 		i = 0;
-// 		while (i < BUFFER_SIZE)
-// 		{
-// 			if (buf[i] == '\n')
-
-// 		}
-// 	}
-// }
-
-int	get_next_line(int fd, char **line)
+static int	find_newline(int fd, char *buf, char **templine)
 {
+	size_t	i;
 	char	*buf;
 	char	*temp;
 
-	if(*line != NULL)
+	buf = malloc(BUFFER_SIZE);
+	temp = malloc(BUFFER_SIZE);
+	while (1)
 	{
-		printf("it was not null\n");
-		free(line);
+		read(fd, buf, BUFFER_SIZE);
+		i = 0;
+		while (i < BUFFER_SIZE)
+		{
+			temp[i] = buf[i];
+			if (buf[i] == '\0')
+			{
+				ft_strjoin(*templine, temp);
+				return (0);
+			}
+			else if (buf[i] == '\n')
+			{
+				ft_strjoin(*templine, temp);
+				return (1);
+			}
+			i++;
+		}
+		ft_strjoin(*templine, temp);
 	}
-	else
+}
+
+int	get_next_line(int fd, char **line)
+{
+	static char	*rest_fd[OPEN_MAX];
+	char		*buf;
+	char		*temp;
+
+	if (*line && fd)
 	{
-		printf("it was null\n");
+		buf = malloc(BUFFER_SIZE + 1);
+		while (read(fd, buf, BUFFER_SIZE))
+		{
+
+		}
 	}
-	// buf = malloc(BUFFER_SIZE * sizeof(char));
-	// if (!buf)
-	// 	return (NULL);
-	// printf("%s", buf);
-	// free(buf);
-	return (0);
+	return (-1);
 }

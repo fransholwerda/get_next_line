@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:24 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/03/04 15:01:04 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/03/11 14:38:27 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <sys/syslimits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32

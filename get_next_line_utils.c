@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:27 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/03/04 15:00:42 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/03/11 15:47:00 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	s12[i + j] = '\0';
 	return (s12);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*sdup;
+	size_t	i;
+
+	sdup = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (sdup == NULL)
+		return (NULL);
+	i = 0;
+	while (i < ft_strlen(s))
+	{
+		sdup[i] = s[i];
+		i++;
+	}
+	sdup[i] = '\0';
+	return (sdup);
 }
