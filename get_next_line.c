@@ -6,56 +6,72 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:30 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/03/11 16:24:24 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/03/25 11:26:08 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	find_newline(int fd, char *buf, char **templine)
+static void	cut_used_line(int fd, char **rest_fd, size_t i)
 {
-	size_t	i;
-	char	*buf;
+	char	*temp_str;
 	char	*temp;
 
-	buf = malloc(BUFFER_SIZE);
-	temp = malloc(BUFFER_SIZE);
-	while (1)
+	temp_str = rest_fd[fd];
+	temp = ft_strdup(&temp_str[i + 1]);
+	free(rest_fd[fd]);
+	rest_fd[fd] = temp;
+}
+
+static int	fill_line(int fd, char **rest_fd, char **line)
+{
+	size_t	i;
+	size_t	j;
+	char	*temp;
+
+	i = 0;
+	while (rest_fd[fd][i] != '\n')
 	{
-		read(fd, buf, BUFFER_SIZE);
-		i = 0;
-		while (i < BUFFER_SIZE)
-		{
-			temp[i] = buf[i];
-			if (buf[i] == '\0')
-			{
-				ft_strjoin(*templine, temp);
-				return (0);
-			}
-			else if (buf[i] == '\n')
-			{
-				ft_strjoin(*templine, temp);
-				return (1);
-			}
-			i++;
-		}
-		ft_strjoin(*templine, temp);
+		if (rest_fd[fd][i] == '\0')
+			return (0);
+		i++;
 	}
+	temp = malloc(sizeof(char) * i + 1);
+	*line = temp;
+	j = 0;
+	while (j <= i)
+	{
+		temp[j] = rest_fd[fd][j];
+		j++;
+	}
+	cut_used_line(fd, rest_fd, i);
+	return (1);
 }
 
 int	get_next_line(int fd, char **line)
 {
 	static char	*rest_fd[OPEN_MAX];
-	char		*buf;
+	char		buf[BUFFER_SIZE + 1];
 	char		*temp;
+	int 		return_value;
 
-	if (*line && fd)
+	if (!line || fd < 0 || BUFFER_SIZE < 1)
+		return (-1);
+	while (read(fd, buf, BUFFER_SIZE))
 	{
-		buf = malloc(BUFFER_SIZE + 1);
-		while (read(fd, buf, BUFFER_SIZE))
+		buf[BUFFER_SIZE] = '\0';
+		if (rest_fd[fd] == NULL)
+			rest_fd[fd] = ft_strdup(buf);
+		else
 		{
-
+			temp = ft_strjoin(rest_fd[fd], buf);
+			free(rest_fd[fd]);
+			rest_fd[fd] = temp;
 		}
+		if (ft_strchr(buf, '\n'))
+			break ;
 	}
-	return (-1);
+	return_value = fill_line(fd, rest_fd, line);
+	//printf("<><><><><><><>BUFFER: %s<><><><><><><><>\n", rest_fd[fd]);
+	return (return_value);
 }

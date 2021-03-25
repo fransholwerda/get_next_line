@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:27 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/03/11 15:47:00 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/03/18 14:32:00 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,20 @@ char	*ft_strdup(const char *s)
 	}
 	sdup[i] = '\0';
 	return (sdup);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if (c == 0)
+		return ((char *)&s[i]);
+	return (NULL);
 }

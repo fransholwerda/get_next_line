@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:24 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/03/11 14:38:27 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/03/18 14:26:34 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s);
+char	*ft_strchr(const char *s, int c);
 
 #endif
