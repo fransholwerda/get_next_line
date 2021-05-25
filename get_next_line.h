@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:24 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/05/17 13:24:25 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/05/25 16:27:12 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <fcntl.h>
-# include <sys/syslimits.h>
 
 # if BUFFER_SIZE < 0
 #  undef BUFFER_SIZE
@@ -26,10 +24,11 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
+# define FD_TOTAL 2048
 
 typedef struct s_gnl
 {
-	char	*rest_fd[OPEN_MAX];
+	char	*rest_fd[FD_TOTAL];
 	char	buf[BUFFER_SIZE + 1];
 }			t_gnl;
 
