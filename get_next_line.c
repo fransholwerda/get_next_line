@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:30 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/05/25 16:27:00 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/10/29 12:18:34 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	check_line(int fd, t_gnl *gnl, char **line)
 		}
 		i++;
 	}
-	if (fill_line(line, i, gnl, fd) == -1)
+	if (fill_line(line, i + 1, gnl, fd) == -1)
 		return (-1);
 	if (cut_used_line(fd, gnl, i + 1) == -1)
 	{
