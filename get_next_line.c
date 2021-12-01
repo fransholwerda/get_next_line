@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:30 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/12/01 16:05:51 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/12/01 17:10:41 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static char	*check_line(int fd, t_gnl *gnl)
 	if (gnl->rest_fd[fd][0] == '\0')
 	{
 		free(gnl->rest_fd[fd]);
+		gnl->rest_fd[fd] = NULL;
 		return (NULL);
 	}
 	i = 0;
