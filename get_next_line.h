@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:24 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/05/25 16:27:12 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/11/30 12:39:59 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 0
 # endif
+# if BUFFER_SIZE > 2147483646
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 2147483646
+# endif
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
@@ -32,7 +36,7 @@ typedef struct s_gnl
 	char	buf[BUFFER_SIZE + 1];
 }			t_gnl;
 
-int		get_next_line(int fd, char **line);
+char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);

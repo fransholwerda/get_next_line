@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:24 by fholwerd      #+#    #+#                 */
-/*   Updated: 2021/05/25 16:41:49 by fholwerd      ########   odam.nl         */
+/*   Updated: 2021/10/29 15:35:48 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # if BUFFER_SIZE < 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 0
+# endif
+# if BUFFER_SIZE > 2147483646
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 2147483646
 # endif
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
