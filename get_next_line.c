@@ -6,7 +6,7 @@
 /*   By: fholwerd <fholwerd@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/03 15:49:30 by fholwerd      #+#    #+#                 */
-/*   Updated: 2022/01/18 16:45:40 by fholwerd      ########   odam.nl         */
+/*   Updated: 2022/01/25 14:32:55 by fholwerd      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,28 @@ static int	fill_line(char *line, size_t i, t_gnl *gnl, int fd)
 	return (1);
 }
 
+static char	*set_line(int fd, t_gnl *gnl, int i)
+{
+	char	*line;
+
+	line = (char *)malloc(sizeof(char) * (i + 1));
+	if (!line)
+		return (NULL);
+	if (fill_line(line, i, gnl, fd) == -1)
+	{
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	if (cut_used_line(fd, gnl, i) == -1)
+	{
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	return (line);
+}
+
 static char	*check_line(int fd, t_gnl *gnl)
 {
 	size_t	i;
@@ -60,21 +82,7 @@ static char	*check_line(int fd, t_gnl *gnl)
 		i++;
 	if (gnl->rest_fd[fd][i] == '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 1));
-	if (!line)
-		return (NULL);
-	if (fill_line(line, i, gnl, fd) == -1)
-	{
-		free(line);
-		line = NULL;
-		return (NULL);
-	}
-	if (cut_used_line(fd, gnl, i) == -1)
-	{
-		free(line);
-		line = NULL;
-		return (NULL);
-	}
+	line = set_line(fd, gnl, i);
 	return (line);
 }
 
